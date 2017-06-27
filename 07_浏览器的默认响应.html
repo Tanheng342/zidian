@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+    </style>
+</head>
+<body>
+    <a href="http://www.baidu.com/" id="myA">跳转</a>
+    <input type="button" id="btn" value="测试">
+    <script>
+        window.onload = function (){
+            $('#myA').onclick = function (e){
+                var evt = e || window.event;
+                // 使用事件对象的preventDefault方法可以阻止浏览器(部分)默认响应
+                // evt.preventDefault();
+                // 注意: 在IE8级以下, 事件对象没有preventDefault方法
+                //  在IE8及以下阻止默认响应须使用事件对象的returnValue属性
+                //  该属性的值为布尔值
+                //   1. true , 代表不阻止默认响应
+                //   2. false, 代表阻止
+                // evt.returnValue = false;
+
+                // 所以此处也需要进行兼容性处理
+                // if(evt.preventDefault){
+                //     evt.preventDefault();
+                // } else {
+                //     evt.returnValue = false;
+                // }
+
+                // 在阻止浏览器默认响应上, 还有一个兼容比较好的方式
+                // 就是直接在事件响应函数中返回false(不能是其他假值)
+                return false;
+            }
+        };
+
+        function $(selector, root){
+            if(!root){
+                root = document;
+            }
+            var starter = selector.charAt(0); // 获取选择器的第一个字符
+            if(starter == "#"){
+                return document.getElementById(selector.substring(1));
+            } else if(starter == "."){
+                return root.getElementsByClassName(selector.substring(1));
+            } else {
+                return root.getElementsByTagName(selector);
+            }
+        }
+    </script>
+</body>
+</html>
